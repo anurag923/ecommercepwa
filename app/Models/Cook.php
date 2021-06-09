@@ -31,4 +31,8 @@ class Cook extends Authenticatable
     public function cookcuisine(){
         return $this->hasOne(cookcuisine::class);
     }
+
+    function cookitem(){
+        return $this->hasOne(CookItem::class);
+    }
 }

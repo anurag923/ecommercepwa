@@ -29,4 +29,14 @@ class ItemController extends Controller
             return response()->json(['message' => $e->getMessage()], $e->getStatus());
         }
     }
+
+    public function itemcooks($id){
+        try{
+            $item = $this->repository->itemcooks($id);
+            return response()->json(['response'=>$item]);
+        }
+        catch(Exception $e){
+            return response()->json(['message'=>$e->getMessage()],$e->getStatus());
+        }
+    }
 }

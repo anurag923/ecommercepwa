@@ -21,6 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('cook/register',[CookController::class,'store']);
+Route::get('cuisines',[CuisineController::class,'getall']);
+Route::get('cuisine/{cuisineid}',[CuisineController::class,'singlecuisine']);
+Route::get('cook/items/{cookid}',[CookController::class,'cookitems']);
+Route::get('item/cooks/{itemid}',[ItemController::class,'itemcooks']);
 Route::middleware('auth:cook-api')->group(function(){
     Route::post('cuisine',[CuisineController::class,'store']);
     Route::post('cook/item',[CookController::class,'add_item_to_cook']);

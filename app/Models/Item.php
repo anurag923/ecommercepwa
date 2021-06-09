@@ -22,4 +22,8 @@ class Item extends Model
     public function cuisine(){
         return $this->belongsTo(Cuisine::class);
     }
+
+    function cookitem(){
+        return $this->hasOne(CookItem::class);
+    }
 }

@@ -4,14 +4,17 @@ namespace App\Repositories;
 use App\Models\Cook;
 use App\Repositories\AppRepository;
 use Illuminate\Http\Request;
+use App\Models\CookItem;
 
 class CookRepository extends AppRepository
 {
     protected $model;
+    protected $cookitem;
     
-    public function __construct(Cook $model)
+    public function __construct(Cook $model,CookItem $cookitem)
     {
         $this->model = $model;
+        $this->cookitem = $cookitem;
     }
     
     /**

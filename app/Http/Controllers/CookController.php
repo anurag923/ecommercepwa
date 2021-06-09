@@ -46,4 +46,14 @@ class CookController extends Controller
             return response()->json(['message'=> $e->getMessage()],$e->getStatus());
         }
     }
+
+    public function cookitems($id){
+        try{
+            $item = $this->repository->cookitems($id);
+            return response()->json(['response'=>$item]);
+        }
+        catch(Exception $e){
+            return response()->json(['message'=>$e->getMessage()],$e->getStatus());
+        }
+    }
 }

@@ -44,4 +44,23 @@ class CuisineController extends Controller
             return response()->json(['message' => $e->getMessage()], $e->getStatus());
         }
     }
+
+    public function getall(){
+        try{
+            $item = $this->repository->get();
+            return response()->json(['response'=>$item]);
+        }
+        catch(Exception $e){
+            return response()->json(['message'=>$e->getMessage()],$e->getStatus());
+        }
+    }
+    public function singlecuisine($id){
+        try{
+            $item = $this->repository->singlecuisine($id);
+            return response()->json(['response'=>$item]);
+        }
+        catch(Exception $e){
+            return response()->json(['message'=>$e->getMessage()],$e->getStatus());
+        }
+    }
 }

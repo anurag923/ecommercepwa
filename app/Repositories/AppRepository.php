@@ -3,20 +3,24 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\CookItem;
+
 class AppRepository
 {
     /**
      * Eloquent model instance.
      */
     protected $model;
+    protected $cookitem;
     /**
      * load default class dependencies.
      * 
      * @param Model $model Illuminate\Database\Eloquent\Model
      */
-    public function __construct(Model $model)
+    public function __construct(Model $model,CookItem $cookitem)
     {
         $this->model = $model;
+        $this->cookitem = $cookitem;
     }
     /**
      * get all the items collection from database table using model.
@@ -27,6 +31,7 @@ class AppRepository
     {
         return $this->model->get();
     }
+
     /**
      * get collection of items in paginate format.
      * 
@@ -126,4 +131,21 @@ class AppRepository
         $cook->cuisine()->attach($cuisineids);
     }
 
+    public function singlecuisine($id){
+        $cuisine = $this->model->where('id',$id);
+        $data = $cuisine->with('cooks')->with(['items'=>function($q){
+            $q->where('famous','yes');
+        }])->get();
+        return $data;
+    }
+
+    public function cookitems($id){
+        $cookitems = $this->cookitem->where('cook_id',$id)->with('cook')->with('item')->get();
+        return $cookitems;
+    }
+    
+    public function itemcooks($id){
+        $itemcooks = $this->cookitem->where('item_id',$id)->with('cook')->with('item')->get();
+        return $itemcooks;
+    }
 }
